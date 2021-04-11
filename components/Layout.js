@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Container from 'react-bootstrap/Container'
+
 
 {/* Hier pak ik de layout van de app */}
 const Layout = ({children, title = "CoinLink"}) => {
@@ -17,7 +19,9 @@ const Layout = ({children, title = "CoinLink"}) => {
                 </Link>
             </header>
             <main>
+                <Container>
                 {children}
+                </Container>
             </main>
         </div>
     )

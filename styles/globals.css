@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    max-width: 100%;
 }
 
 a {
@@ -22,7 +23,7 @@ a {
 }
 
 body {
-  background-color: #101012;
+  background-color: #101012!important;
 }
 
 .coin_app {
@@ -47,3 +48,6 @@ body {
   height: 200px;
   width: 200px;
 }
+ .container { 
+  max-width: 100%!important;
+ }

@@ -2,6 +2,7 @@ import {useState} from 'react'
 import CoinList from '../components/CoinList';
 import SearchBar from '../components/SearchBar';
 import Layout from '../components/Layout';
+import bootstrap from "bootstrap/dist/css/bootstrap.css";
 
 {/* Dit is de front page */}
 {/* Hieronder heb je functie om alle filteredCoins met de search bar te filteren (hoeft niet voor de opdracht maar heb ik toch gedaan)*/}

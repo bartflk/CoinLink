@@ -10,7 +10,7 @@
     align-items: center;
     height: 80px;
     border-bottom: 1px solid #2e2e2e;
-    width: 1000px;
+    width: 100%;
     padding: 0rem 2rem;
   }
   
@@ -60,12 +60,34 @@
   
   .coin_percent {
     width: 100px;
+    margin-right: 2px!important;
+    margin-left: 2px!important;
   }
   
   .red {
     color: #f00606;
+    margin-right: 3px!important;
+    margin-left: 3px!important;
   }
   
   .green {
     color: #13c783;
+    margin-right: 3px!important;
+    margin-left: 3px!important;
+  }
+
+  @media (max-width: 600px) {
+    .coin_h1 {
+      display: none;
+      padding-right: 0px;
+    }
+    .coin_symbol {
+      display: none;
+      padding-right: 0px;
+    }
+    .coin_marketcap {
+      display: none;
+      padding-right: 0px;
+    }
+    
   }
