@@ -1,65 +1,48 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import {useState} from 'react'
+import CoinList from '../components/CoinList';
+import SearchBar from '../components/SearchBar';
+import Layout from '../components/Layout';
 
-export default function Home() {
+{/* Dit is de front page */}
+{/* Hieronder heb je functie om alle filteredCoins met de search bar te filteren (hoeft niet voor de opdracht maar heb ik toch gedaan)*/}
+{/* Ik call van de API 50 crypro projecten per pagina, dus een search functie die werkt is nice */}
+
+export default function Home({ filteredCoins }) {
+  const [search, setSearch] = useState('')
+
+  const allCoins = filteredCoins.filter(coin =>
+    coin.name.toLowerCase().includes(search.toLowerCase())
+    )
+
+    const handleChange = e => {
+      e.preventDefault()
+
+      setSearch(e.target.value.toLowerCase())
+    }
+
+  {/* Hieronder heb ik de componenten Searchbar en CoinList onder elkaar in een div om het te centeren */}
+  {/* Ik heb een layout gemaakt die zit in '../components/Layout' zodat het wat netter is*/}
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+    <Layout>
+      <div className='coin_app'>
+      <SearchBar type="text" placeholder="Search" onChange={handleChange}/>
+      <CoinList  filteredCoins={allCoins} />  
+      </div>
+    </Layout>
+  );
 }
+
+{/* Hier heb je functie om de coins op te halen en het haalt alle info wanneer de prijzen updaten  */}
+{/* Ik gebruik getServerSideProps omdat het om crypto gaat, de prijzen veranderen veel dus het leek me normaal om dat te doen  */}
+export const getServerSideProps = async () => {
+  const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false'
+  );
+
+  const filteredCoins = await res.json()
+  
+  return {
+    props: {
+      filteredCoins
+    }
+  }
+};
